@@ -1,0 +1,7 @@
+# Refresh-safe paths on Netlify (works with publish = ".")
+/admin            /admin/              301
+/admin/           /admin/index.html    200
+/admin/login      /admin/login.html    200
+/admin/login/     /admin/login.html    200
+/review           /review.html         200
+/review/          /review.html         200

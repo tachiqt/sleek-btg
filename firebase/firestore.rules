@@ -1,0 +1,102 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isPublishedReview() {
+      return !('published' in resource.data) || resource.data.published == true;
+    }
+
+    function invitePath(token) {
+      return /databases/$(database)/documents/reviewInvites/$(token);
+    }
+
+    // Public creates pending requests; admin manages the rest
+    match /bookings/{id} {
+      allow create: if request.resource.data.keys().hasAll([
+          'clientName', 'phone', 'service', 'date', 'time', 'status'
+        ])
+        && request.resource.data.status == 'pending'
+        && request.resource.data.clientName is string
+        && request.resource.data.clientName.size() >= 2
+        && request.resource.data.clientName.size() <= 120
+        && request.resource.data.phone is string
+        && request.resource.data.phone.size() >= 7
+        && request.resource.data.phone.size() <= 40;
+      allow read, update, delete: if isSignedIn();
+    }
+
+    // QR review invites — public can read token + mark used after submitting
+    match /reviewInvites/{token} {
+      allow get: if true;
+      allow list, create, delete: if isSignedIn();
+      allow update: if isSignedIn()
+        || (
+          resource.data.status == 'open'
+          && request.resource.data.status == 'used'
+          && request.resource.data.diff(resource.data).affectedKeys()
+              .hasOnly(['status', 'usedAt', 'reviewId'])
+        );
+    }
+
+    // Public can read open availability; guests may hold an open slot when booking
+    match /slots/{id} {
+      allow read: if true;
+      allow create, delete: if isSignedIn();
+      allow update: if isSignedIn()
+        || (
+          resource.data.status == 'open'
+          && request.resource.data.status == 'held'
+          && request.resource.data.bookingId is string
+          && request.resource.data.diff(resource.data).affectedKeys()
+              .hasOnly(['status', 'bookingId', 'updatedAt'])
+        );
+    }
+
+    match /portfolio/{id} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+
+    // Published reviews readable; clients create via valid open invite; admin manages
+    match /reviews/{id} {
+      allow read: if isPublishedReview() || isSignedIn();
+      allow update, delete: if isSignedIn();
+      allow create: if isSignedIn()
+        || (
+          request.resource.data.keys().hasAll([
+            'name', 'quote', 'rating', 'reviewToken', 'bookingId',
+            'published', 'countsTowardProfit'
+          ])
+          && request.resource.data.published == true
+          && request.resource.data.countsTowardProfit == true
+          && request.resource.data.quote is string
+          && request.resource.data.quote.size() >= 5
+          && request.resource.data.quote.size() <= 800
+          && request.resource.data.name is string
+          && exists(invitePath(request.resource.data.reviewToken))
+          && get(invitePath(request.resource.data.reviewToken)).data.status == 'open'
+          && get(invitePath(request.resource.data.reviewToken)).data.bookingId
+              == request.resource.data.bookingId
+          && get(invitePath(request.resource.data.reviewToken)).data.clientName
+              == request.resource.data.name
+        );
+    }
+
+    match /inventory/{id} {
+      allow read, write: if isSignedIn();
+    }
+
+    match /services/{id} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+
+    match /bundles/{id} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+  }
+}

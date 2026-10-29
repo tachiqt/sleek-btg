@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#f8f4ee"/>
+  <meta name="robots" content="noindex"/>
+  <title>Leave a review · Sleek.btg</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link href="css/review.css" rel="stylesheet"/>
+</head>
+<body class="review-page">
+  <main class="review-shell">
+    <p class="eyebrow">Sleek.btg</p>
+    <h1>Thank you for visiting</h1>
+    <p class="review-lead" id="review-lead">Loading your appointment…</p>
+  </main>
+
+  <dialog class="review-modal" id="review-modal" aria-labelledby="review-modal-title">
+    <form method="dialog" id="review-form" class="review-form">
+      <p class="eyebrow">Client review</p>
+      <h2 id="review-modal-title">How was your set?</h2>
+      <p class="review-summary" id="review-summary"></p>
+
+      <label>Your name
+        <input id="review-name" name="name" readonly/>
+      </label>
+      <label>Service
+        <input id="review-service" name="service" readonly/>
+      </label>
+      <label>Visit total
+        <input id="review-price" name="price" readonly/>
+      </label>
+      <label>Rating
+        <select id="review-rating" name="rating">
+          <option value="5">5 · Loved it</option>
+          <option value="4">4 · Great</option>
+          <option value="3">3 · Good</option>
+          <option value="2">2 · Okay</option>
+          <option value="1">1 · Needs work</option>
+        </select>
+      </label>
+      <label>Your note
+        <textarea id="review-quote" name="quote" required minlength="5" maxlength="800" placeholder="The finish, the vibe, the little details…" rows="4"></textarea>
+      </label>
+      <p class="review-error" id="review-error" hidden></p>
+      <div class="review-actions">
+        <button type="submit" class="btn" id="review-submit">Submit review</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="js/modules/review-page.js"></script>
+</body>
+</html>

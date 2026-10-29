@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+cloudflare/**/node_modules/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+*.pem
+credentials.json
+serviceAccount*.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build / logs
+dist/
+*.log
+.firebase/
+.firebaserc

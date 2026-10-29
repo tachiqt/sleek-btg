@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#f8f4ee"/>
+  <meta name="robots" content="noindex"/>
+  <title>Sleek.btg Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link href="css/admin.css?v=20260921a" rel="stylesheet"/>
+</head>
+<body class="admin-page">
+  <div id="auth-loading" class="login-screen">
+    <p class="empty">Checking admin session…</p>
+  </div>
+
+  <div id="app" class="app" hidden>
+    <div class="sidebar-backdrop" id="sidebar-backdrop" hidden></div>
+    <aside class="sidebar" id="admin-sidebar">
+      <div class="sidebar-top">
+        <a class="brand" href="../index.html">Sleek<span>.</span>btg</a>
+      </div>
+      <p class="sidebar-label">Studio admin</p>
+      <nav id="admin-nav">
+        <button type="button" data-view="dashboard" class="nav-item is-active" title="Overview">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
+          <span class="nav-text">Overview</span>
+        </button>
+        <button type="button" data-view="inventory" class="nav-item" title="Inventory">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5v-9Z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 12 4 7.5M12 12l8-4.5M12 12v9" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></span>
+          <span class="nav-text">Inventory</span>
+        </button>
+        <button type="button" data-view="slots" class="nav-item" title="Slots">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8 3.5v3M16 3.5v3M3.5 9.5h17" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+          <span class="nav-text">Slots</span>
+        </button>
+        <button type="button" data-view="bookings" class="nav-item" title="Bookings">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4h8a2 2 0 0 1 2 2v14l-3-2-3 2-3-2-3 2V6a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 9h6M9 13h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+          <span class="nav-text">Bookings</span>
+        </button>
+        <button type="button" data-view="portfolio" class="nav-item" title="Portfolio">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="9" cy="10" r="1.6" fill="currentColor"/><path d="m7 16 3.2-3.2a1 1 0 0 1 1.3 0L14 15l1.2-1.2a1 1 0 0 1 1.3 0L20 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+          <span class="nav-text">Portfolio</span>
+        </button>
+        <button type="button" data-view="reviews" class="nav-item" title="Reviews">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3.8 2.2 4.5 5 .7-3.6 3.5.9 5L12 15.4 7.5 17.5l.9-5L4.8 9l5-.7L12 3.8Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
+          <span class="nav-text">Reviews</span>
+        </button>
+      </nav>
+      <button type="button" class="sidebar-collapse-btn" id="sidebar-collapse" aria-label="Collapse sidebar" title="Collapse sidebar">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6 9 12l6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button type="button" id="logout-btn" class="btn btn-ghost sidebar-logout" title="Sign out">
+        <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M10 7V5a2 2 0 0 1 2-2h7v18h-7a2 2 0 0 1-2-2v-2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M4 12h10M10 8l-4 4 4 4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="nav-text">Sign out</span>
+      </button>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-controls="admin-sidebar" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+          <div>
+            <p class="eyebrow" id="view-eyebrow" hidden></p>
+            <h1 id="view-title">Overview</h1>
+          </div>
+        </div>
+        <a class="btn btn-ghost" href="../index.html" target="_blank" rel="noopener">View site ↗</a>
+      </header>
+      <div id="view-root" class="view-root"></div>
+    </main>
+  </div>
+
+  <script src="js/firebase-config.js?v=20260921a"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-auth-compat.js"></script>
+  <script src="js/gate.js?v=20260921a"></script>
+  <script type="module" src="js/main.js?v=20260921a"></script>
+</body>
+</html>

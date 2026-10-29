@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#f8f4ee"/>
+  <meta name="robots" content="noindex"/>
+  <title>Sign in · Sleek.btg Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link href="css/admin.css" rel="stylesheet"/>
+</head>
+<body class="login-page">
+  <main class="login-screen">
+    <form id="login-form" class="login-card" action="javascript:void(0)" autocomplete="off" method="post">
+      <p class="eyebrow">Sleek.btg studio</p>
+      <h1>Admin access</h1>
+      <p class="login-copy">Sign in to manage inventory, slots, bookings, portfolio, and reviews.</p>
+      <label>Email<input id="login-email" name="email" type="email" autocomplete="off" autocapitalize="off" spellcheck="false" required/></label>
+      <label>Password<input id="login-password" name="password" type="password" autocomplete="new-password" required/></label>
+      <p id="login-error" class="form-error" role="alert"></p>
+      <button type="submit" class="btn" id="login-submit">Sign in</button>
+    </form>
+  </main>
+
+  <script src="js/firebase-config.js?v=20260920b"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-auth-compat.js"></script>
+  <script src="js/login.js?v=20260920b"></script>
+</body>
+</html>
